@@ -41,8 +41,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: build-and-test  # Only deploy if tests pass
-    # Only deploy on push to master (not on pull requests)
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    # Only deploy on push to master (not on pull requests) AND if build-and-test succeeded
+    if: success() && github.event_name == 'push' && github.ref == 'refs/heads/master'
    
     steps:
     - name: Checkout code
